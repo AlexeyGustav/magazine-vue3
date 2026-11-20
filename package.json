@@ -12,7 +12,8 @@
     "lint": "run-s \"lint:*\"",
     "lint:oxlint": "oxlint . --fix",
     "lint:eslint": "eslint . --fix --cache",
-    "format": "prettier --write --experimental-cli src/"
+    "format": "prettier --write --experimental-cli src/",
+    "typecheck": "vue-tsc --noEmit"
   },
   "dependencies": {
     "pinia": "^4.0.3",
@@ -22,6 +23,7 @@
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@playwright/test": "^1.63.0",
+    "@types/node": "^26.6.6",
     "@vitejs/plugin-vue": "^6.0.8",
     "@vitest/coverage-v8": "^4.1.11",
     "@vitest/eslint-plugin": "^1.6.27",
@@ -37,10 +39,12 @@
     "oxlint": "~1.82.0",
     "prettier": "3.9.6",
     "sass-embedded": "^1.105.1",
+    "typescript": "^6.0.3",
     "vite": "^8.2.2",
     "vite-plugin-vue-devtools": "^8.2.1",
     "vitest": "^4.1.11",
-    "vue-eslint-parser": "^10.4.1"
+    "vue-eslint-parser": "^10.4.1",
+    "vue-tsc": "^3.3.14"
   },
   "engines": {
     "node": "^22.18.0 || >=24.12.0"
