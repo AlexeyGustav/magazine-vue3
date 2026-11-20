@@ -1,17 +1,16 @@
 import { ref, computed } from 'vue';
 import { defineStore } from 'pinia';
+import type { Product, CartItem } from '@/types/types.ts';
 
 export const useBasket = defineStore('basket', () => {
-  const items = ref([]);
+  const items = ref<CartItem[]>([]);
   // Стоимость товаров в корзине
-  const totalSum = computed(() =>
-    items.value.reduce((sum, p) => sum + p.price * p.quantity, 0)
-  );
+  const totalSum = computed(() => items.value.reduce((sum, p) => sum + p.price * p.quantity, 0));
 
   // Корзина в хедере
   const headerBasket = computed(() => items.value.length);
 
-  function addBasket(item) {
+  function addBasket(item: Product) {
     const existing = items.value.find((p) => p.id === item.id);
 
     if (existing) {
@@ -22,13 +21,13 @@ export const useBasket = defineStore('basket', () => {
   }
 
   // Добавить товар
-  function plusCounter(product) {
+  function plusCounter(product: CartItem) {
     const existing = items.value.find((p) => p.id === product.id);
     if (existing) existing.quantity += 1;
   }
 
   // Убавить товар
-  function minusCounter(product) {
+  function minusCounter(product: CartItem) {
     const existing = items.value.find((p) => p.id === product.id);
     if (!existing) return;
     if (existing.quantity > 1) {
@@ -39,12 +38,12 @@ export const useBasket = defineStore('basket', () => {
   }
 
   // Удалить товар
-  function deleteCard(product) {
+  function deleteCard(product: CartItem) {
     items.value = items.value.filter((p) => p.id !== product.id);
   }
 
   // Копия суммы корзины, для окна успеха
-  const lastOrder = ref([0]);
+  const lastOrder = ref(0);
 
   function clearBasket() {
     lastOrder.value = totalSum.value;
@@ -60,6 +59,6 @@ export const useBasket = defineStore('basket', () => {
     deleteCard,
     totalSum,
     clearBasket,
-    lastOrder
+    lastOrder,
   };
 });

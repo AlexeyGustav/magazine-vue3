@@ -1,14 +1,16 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { setActivePinia, createPinia } from 'pinia';
-import { useBasket } from '../stores/basket.js';
+import { useBasket } from '@/stores/basket.ts';
+import type { CartItem } from '@/types/types.ts';
 
 describe('тесты стора корзины', () => {
   beforeEach(() => {
     setActivePinia(createPinia());
   });
 
-  const product = {
+  const product: CartItem = {
     id: 1,
+    description: "Кружка",
     price: 400,
     quantity: 2,
   };
@@ -19,11 +21,13 @@ describe('тесты стора корзины', () => {
         id: 1,
         price: 400,
         quantity: 2,
+        description: "Кружка",
       },
       {
         id: 2,
         price: 420,
         quantity: 1,
+        description: "Ваза",
       },
     ];
 
