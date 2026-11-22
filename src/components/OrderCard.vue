@@ -41,7 +41,7 @@ const pay = usePayment();
 const basket = useBasket();
 
 const copySum = ref('');
-copySum.value = basket.totalSum.toLocaleString('RU', 'ru');
+copySum.value = basket.totalSum.toLocaleString('ru-RU');
 
 const today = new Date();
 const isoDate = today.toISOString().split('T')[0];

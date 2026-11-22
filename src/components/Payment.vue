@@ -238,7 +238,7 @@
             <!-- Сумма -->
             <div class="cash-amount-wrap">
               <span class="cash-amount-label">Сумма к оплате</span>
-              <span class="cash-amount">{{ basket.totalSum.toLocaleString('RU', 'ru') }} ₽</span>
+              <span class="cash-amount">{{ basket.totalSum.toLocaleString('ru-RU') }} ₽</span>
             </div>
 
             <!-- Инфо-блоки -->

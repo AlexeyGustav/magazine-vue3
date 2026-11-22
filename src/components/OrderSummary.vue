@@ -27,7 +27,7 @@
         <div class="summary-total">
           <span class="summary-total-label">К оплате</span>
           <span class="summary-total-price"
-            >{{ basket.totalSum.toLocaleString('RU', 'ru') }} ₽</span
+            >{{ basket.totalSum.toLocaleString('ru-RU') }} ₽</span
           >
         </div>
       </aside>

@@ -44,9 +44,9 @@
     </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed } from 'vue';
-import { useBasket } from '../stores/basket.js';
+import { useBasket } from '../stores/basket.ts';
 const basket = useBasket();
 
 const textHeader = computed(() => {

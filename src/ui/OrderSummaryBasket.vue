@@ -15,15 +15,15 @@
 
         <div class="summary-total">
           <span class="summary-total-label">К оплате</span>
-          <span class="summary-total-price">{{ (basket.totalSum).toLocaleString("RU", "ru") }} ₽</span>
+          <span class="summary-total-price">{{ (basket.totalSum).toLocaleString('RU-ru') }} ₽</span>
         </div>
 
         <router-link :to="{ name: 'payment' }" class="checkout-btn"> Оформить заказ </router-link>
       </aside>
 </template>
 
-<script setup>
-import { useBasket } from '../stores/basket.js';
+<script setup lang="ts">
+import { useBasket } from '../stores/basket.ts';
 
 const basket = useBasket();
 
