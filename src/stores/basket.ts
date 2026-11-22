@@ -1,6 +1,6 @@
 import { ref, computed } from 'vue';
 import { defineStore } from 'pinia';
-import type { Product, CartItem } from '@/types/types.ts';
+import type { CartItem } from '@/types/types.ts';
 
 export const useBasket = defineStore('basket', () => {
   const items = ref<CartItem[]>([]);
@@ -10,7 +10,7 @@ export const useBasket = defineStore('basket', () => {
   // Корзина в хедере
   const headerBasket = computed(() => items.value.length);
 
-  function addBasket(item: Product) {
+  function addBasket(item: CartItem) {
     const existing = items.value.find((p) => p.id === item.id);
 
     if (existing) {

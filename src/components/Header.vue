@@ -60,8 +60,8 @@
 </template>
 
 <script setup>
-import { useBasket } from '../stores/basket.js';
-import { useSearch } from '../stores/search.js';
+import { useBasket } from '../stores/basket.ts';
+import { useSearch } from '../stores/search.ts';
 
 const basket = useBasket();
 const search = useSearch();

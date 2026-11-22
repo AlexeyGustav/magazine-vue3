@@ -9,7 +9,7 @@
         <div v-for="card in basket.items" :key="card.id">
           <article class="cart-item">
             <div class="item-image-wrap">
-              <img :src="card.img" alt="Часы Minimalist Watch" class="item-image" />
+              <img :src="card.img" :alt="card.description" class="item-image" />
             </div>
 
             <div class="item-info">
@@ -102,22 +102,22 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import HeaderBasket from '@/ui/HeaderBasket.vue';
-import { useBasket } from '../stores/basket.js';
+import { useBasket } from '../stores/basket.ts';
 import OrderSummaryBasket from '@/ui/OrderSummaryBasket.vue';
 
 const basket = useBasket();
 
-function sliceText(text) {
+function sliceText(text: string): string {
   const wordsArray = text.split(' ');
   const textSlice = wordsArray.slice(0, 5).join(' ') + '...';
   return textSlice;
 }
 
-function sumItem(item, quantity) {
+function sumItem(item: number, quantity: number): string {
   const sumItem = item * quantity
-  basket.sumItem = sumItem;
+
   return sumItem.toLocaleString('ru-RU')
 }
 </script>

@@ -19,7 +19,7 @@ export interface AllProduct extends Product {
 export type SearchableProduct = Pick<Product, "description">;
 
 // Тип в корзине
-export interface CartItem extends Product {
+export interface CartItem extends AllProduct {
   quantity: number;
 }
 

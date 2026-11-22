@@ -3,32 +3,35 @@ import { setActivePinia, createPinia } from 'pinia';
 import { useBasket } from '@/stores/basket.ts';
 import type { CartItem } from '@/types/types.ts';
 
+// Фабрика: принимает ЛЮБУЮ ЧАСТЬ полей (Partial), возвращает ПОЛНЫЙ CartItem
+const makeCartItem = (overrides: Partial<CartItem> = {}): CartItem => ({
+  id: 1,
+  description: 'Кружка',
+  price: 400,
+  img: '',
+  title: '',
+  text: '',
+  oldPrice: null,
+  newPrice: null,
+  additional: '',
+  material: [],
+  color: [],
+  style: [],
+  quantity: 1,
+  ...overrides,
+});
+
 describe('тесты стора корзины', () => {
   beforeEach(() => {
     setActivePinia(createPinia());
   });
 
-  const product: CartItem = {
-    id: 1,
-    description: "Кружка",
-    price: 400,
-    quantity: 2,
-  };
+  const product = makeCartItem({ quantity: 2 });
 
   it('посчёт итоговой суммы', () => {
-    const items = [
-      {
-        id: 1,
-        price: 400,
-        quantity: 2,
-        description: "Кружка",
-      },
-      {
-        id: 2,
-        price: 420,
-        quantity: 1,
-        description: "Ваза",
-      },
+    const items: CartItem[] = [
+      makeCartItem({ id: 1, quantity: 2 }),
+      makeCartItem({ id: 2, description: 'Ваза', price: 420, quantity: 1 }),
     ];
 
     const basket = useBasket();
@@ -37,6 +40,7 @@ describe('тесты стора корзины', () => {
     basket.items = items;
     expect(basket.totalSum).toBe(1220);
   });
+
   it('Добавление товаров в корзину', () => {
     const basket = useBasket();
     basket.addBasket(product);
@@ -50,6 +54,7 @@ describe('тесты стора корзины', () => {
     basket.plusCounter(product);
     expect(basket.items[0].quantity).toBe(3);
   });
+
   it('Убавление товаров из корзины', () => {
     const basket = useBasket();
     basket.addBasket(product);
@@ -63,6 +68,7 @@ describe('тесты стора корзины', () => {
     basket.minusCounter(product);
     expect(basket.items[0].quantity).toBe(1);
   });
+
   it('Удаление товара из корзины', () => {
     const basket = useBasket();
     basket.addBasket(product);
