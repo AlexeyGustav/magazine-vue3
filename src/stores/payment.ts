@@ -2,12 +2,12 @@ import { ref } from 'vue';
 import { defineStore } from 'pinia';
 
 export const usePayment = defineStore('payment', () => {
-  const typePay = ref("Банковская карта");
+  const typePay = ref<string>("Банковская карта");
 
-  const numberCard = ref("");
-  const name = ref("");
-  const validityPeriod = ref("");
-  const cvc = ref("");
+  const numberCard = ref<string>("");
+  const name = ref<string>("");
+  const validityPeriod = ref<string>("");
+  const cvc = ref<string>("");
 
   return {
     typePay,
