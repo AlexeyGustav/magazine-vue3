@@ -8,7 +8,7 @@
 </template>
 
 <script setup>
-import { useFilters } from '../stores/filtersProducts.js';
+import { useFilters } from '../stores/filtersProducts.ts';
 const filters = useFilters();
 // defineProps(['styleList']);
 const currentStyle = defineModel('currentStyle');

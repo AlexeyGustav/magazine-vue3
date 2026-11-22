@@ -3,11 +3,13 @@ import { defineStore } from 'pinia';
 
 export const useSearch = defineStore('search', () => {
   // Поиск
-  const input = ref('');
+  const input = ref<string>('');
   const isFocused = ref(false);
 
-  function writeInput(event) {
+  function writeInput(event: Event) {
+    if (event.target instanceof HTMLInputElement) {
     input.value = event.target.value;
+    }
   }
 
   function focusInput() {
