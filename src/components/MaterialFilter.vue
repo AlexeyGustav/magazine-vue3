@@ -7,9 +7,9 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { useFilters } from '../stores/filtersProducts.ts';
 const filters = useFilters();
 // const props = defineProps(['materialList']);
-const selectedMaterial = defineModel('selectedMaterial');
+const selectedMaterial = defineModel<string[]>('selectedMaterial', { default: () => [] });
 </script>

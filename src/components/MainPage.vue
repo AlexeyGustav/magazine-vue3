@@ -1,5 +1,5 @@
 <template>
-  <Header/>
+  <Header />
   <div class="main-content">
     <div class="layout">
       <AllFilters
@@ -40,7 +40,7 @@
       </section>
     </div>
   </div>
-  <Footer/>
+  <Footer />
 </template>
 
 <script setup lang="ts">
@@ -75,5 +75,4 @@ function clearFilters() {
 
 // Компонет смонторован
 onMounted(() => filters.fetchProducts());
-
 </script>

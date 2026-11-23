@@ -1,12 +1,16 @@
 <template>
-  <button class="tab" :class="{ active }" @click="$emit('activeTab', category)" type="button">
-    {{ category }}
+  <button class="tab" :class="{ active }" @click="emit('activeTab', props.category)" type="button">
+    {{ props.category }}
   </button>
 </template>
 
-<script setup>
+<script setup lang="ts">
+const props = defineProps<{
+  category: string;
+  active: boolean;
+}>();
 
-defineProps(['category', 'active']);
-defineEmits(['activeTab']);
-
+const emit = defineEmits<{
+  activeTab: [category: string];
+}>();
 </script>

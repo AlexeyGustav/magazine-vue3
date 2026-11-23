@@ -26,6 +26,16 @@ export default defineConfig([
 
   js.configs.recommended,
   ...pluginVue.configs['flat/essential'],
+  {
+    name: 'app/vue-files-with-ts',
+    files: ['**/*.vue'],
+    languageOptions: {
+      parserOptions: {
+        parser: tseslint.parser,
+        extraFileExtensions: ['.vue'],
+      },
+    },
+  },
 
   {
     ...pluginPlaywright.configs['flat/recommended'],

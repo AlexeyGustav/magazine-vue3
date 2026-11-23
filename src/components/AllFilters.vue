@@ -14,7 +14,7 @@
           :min="min"
           :max="max"
           step="10"
-          @input="emits('update:valueRange',Number(($event.target as HTMLInputElement).value))"
+          @input="emits('update:valueRange', Number(($event.target as HTMLInputElement).value))"
           :value="valueRange"
         />
       </div>
@@ -59,7 +59,7 @@ interface Emits {
   clear: [];
 }
 
-const props = defineProps<Props>();
+defineProps<Props>();
 const emits = defineEmits<Emits>();
 const selectedMarks = defineModel<string[]>('selectedMarks');
 const selectedMaterial = defineModel<string[]>('selectedMaterial');

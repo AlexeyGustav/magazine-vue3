@@ -8,7 +8,7 @@ export const useSearch = defineStore('search', () => {
 
   function writeInput(event: Event) {
     if (event.target instanceof HTMLInputElement) {
-    input.value = event.target.value;
+      input.value = event.target.value;
     }
   }
 

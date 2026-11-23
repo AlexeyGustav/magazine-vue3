@@ -1,7 +1,7 @@
 import { ref, computed } from 'vue';
 import { defineStore } from 'pinia';
 import { getProducts } from '@/api/api.ts';
-import { useSearch } from './search.ts'
+import { useSearch } from './search.ts';
 import type { AllProduct, OptionsByApi } from '@/types/types.ts';
 
 // Основная логика, где происходят расчёты и какие товары надо вывести
@@ -19,7 +19,7 @@ export const useFilters = defineStore('dataFilers', () => {
   const materialList = ref<OptionsByApi>({
     label: '',
     type: 'checkbox',
-    options: []
+    options: [],
   });
   const material = ref<string[]>([]);
   // Все названия категорий
@@ -28,14 +28,14 @@ export const useFilters = defineStore('dataFilers', () => {
   const colorList = ref<OptionsByApi>({
     label: '',
     type: 'checkbox',
-    options: []
+    options: [],
   });
   const currentColor = ref<string[]>([]);
   // Стиль
   const styleList = ref<OptionsByApi>({
     label: '',
     type: 'checkbox',
-    options: []
+    options: [],
   });
   const currentStyle = ref<string[]>([]);
 
@@ -57,7 +57,7 @@ export const useFilters = defineStore('dataFilers', () => {
       colorList.value = data.filters.color;
       styleList.value = data.filters.style;
     } catch (e) {
-      if(e instanceof Error) {
+      if (e instanceof Error) {
         error.value = e.message;
       } else {
         error.value = String(e);
@@ -79,7 +79,7 @@ export const useFilters = defineStore('dataFilers', () => {
     // Поиск инпута
     const query = search.input.trim().toLowerCase();
     if (query) {
-      result =  result.filter((word) => {
+      result = result.filter((word) => {
         return word.description.toLowerCase().includes(query);
       });
     }
@@ -111,17 +111,17 @@ export const useFilters = defineStore('dataFilers', () => {
       result = result.filter((p) => p.style.some((m) => currentStyle.value.includes(m)));
     }
 
-    return result
+    return result;
   });
 
   // Границы фильтра цен
-const minPrice = computed(() => {
-  return Math.min(...dataProducts.value.map((p) => p.price));
-});
+  const minPrice = computed(() => {
+    return Math.min(...dataProducts.value.map((p) => p.price));
+  });
 
-const maxPrice = computed(() => {
-  return Math.max(...dataProducts.value.map((p) => p.price));
-});
+  const maxPrice = computed(() => {
+    return Math.max(...dataProducts.value.map((p) => p.price));
+  });
 
   return {
     fetchProducts,
@@ -140,6 +140,6 @@ const maxPrice = computed(() => {
     minPrice,
     maxPrice,
     error,
-    isLoading
+    isLoading,
   };
 });

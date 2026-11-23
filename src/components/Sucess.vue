@@ -2,13 +2,13 @@
   <div class="success-page">
     <main class="success-main">
       <!-- Иконка успеха -->
-     <SucessIcon/>
+      <SucessIcon />
 
       <h1 class="success-title">Заказ оформлен!</h1>
       <p class="success-subtitle">Оплата прошла успешно. Мы уже готовим ваш заказ к отправке.</p>
 
       <!-- Карточка заказа -->
-      <OrderCard/>
+      <OrderCard />
 
       <!-- Действия -->
       <div class="success-actions">
@@ -34,10 +34,9 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import SucessIcon from '@/ui/SucessIcon.vue';
 import OrderCard from './OrderCard.vue';
-
 </script>
 
 <style scoped></style>

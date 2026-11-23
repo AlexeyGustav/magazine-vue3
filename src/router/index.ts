@@ -3,10 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 export const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    { path: '/',
-      name: 'main',
-      component: () => import('@/components/MainPage.vue')
-    },
+    { path: '/', name: 'main', component: () => import('@/components/MainPage.vue') },
     {
       path: '/basket',
       name: 'basket',
@@ -22,10 +19,11 @@ export const router = createRouter({
       name: 'sucess',
       component: () => import('@/components/Sucess.vue'),
     },
-    { path: '/:pathMatch(.*)*',
+    {
+      path: '/:pathMatch(.*)*',
       name: 'not-found',
-      component:() => import('@/components/NotFound.vue')
-    }
+      component: () => import('@/components/NotFound.vue'),
+    },
   ],
 });
 

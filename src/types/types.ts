@@ -16,7 +16,7 @@ export interface AllProduct extends Product {
   style: string[];
 }
 
-export type SearchableProduct = Pick<Product, "description">;
+export type SearchableProduct = Pick<Product, 'description'>;
 
 // Тип в корзине
 export interface CartItem extends AllProduct {

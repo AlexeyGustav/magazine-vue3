@@ -1,6 +1,6 @@
 <template>
   <div class="cart-page">
-    <HeaderBasket/>
+    <HeaderBasket />
 
     <div v-if="basket.headerBasket" class="cart-body">
       <!-- Список товаров -->
@@ -75,7 +75,7 @@
       </section>
 
       <!-- Сводка заказа -->
-      <OrderSummaryBasket/>
+      <OrderSummaryBasket />
     </div>
 
     <!-- ─── Пустая корзина (скрыта при наличии товаров) ── -->
@@ -116,9 +116,9 @@ function sliceText(text: string): string {
 }
 
 function sumItem(item: number, quantity: number): string {
-  const sumItem = item * quantity
+  const sumItem = item * quantity;
 
-  return sumItem.toLocaleString('ru-RU')
+  return sumItem.toLocaleString('ru-RU');
 }
 </script>
 

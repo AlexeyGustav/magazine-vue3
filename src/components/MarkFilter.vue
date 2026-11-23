@@ -13,8 +13,7 @@
   </div>
 </template>
 
-<script setup>
-const selectedMarks = defineModel('selectedMarks');
+<script setup lang="ts">
+const selectedMarks = defineModel<string[]>('selectedMarks', { default: () => [] });
 </script>
 
-<style lang="scss" scope></style>

@@ -9,7 +9,7 @@
         <h1 class="checkout-title">Способ оплаты</h1>
 
         <!-- Табы выбора способа -->
-        <SelectionTabs/>
+        <SelectionTabs />
 
         <!-- ─── Панель: Банковская карта ─────────────── -->
         <div v-if="pay.typePay === 'Банковская карта'" class="pay-panel" role="tabpanel">
@@ -277,7 +277,7 @@
       </main>
 
       <!-- Правая часть: сводка заказа -->
-      <OrderSummary/>
+      <OrderSummary />
     </div>
   </div>
 </template>
@@ -287,7 +287,7 @@ import { ref, computed } from 'vue';
 import { useBasket } from '../stores/basket.js';
 import { usePayment } from '../stores/payment.js';
 import { useRouter } from 'vue-router';
-import HeaderPayment from '../ui/HeaderPayment.vue'
+import HeaderPayment from '../ui/HeaderPayment.vue';
 import SelectionTabs from '@/ui/SelectionTabs.vue';
 import OrderSummary from './OrderSummary.vue';
 const router = useRouter();

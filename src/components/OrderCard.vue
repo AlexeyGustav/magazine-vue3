@@ -32,10 +32,10 @@
   </div>
 </template>
 
-<script setup>
-import { usePayment } from '../stores/payment.js';
+<script setup lang="ts">
+import { usePayment } from '../stores/payment.ts';
 import { ref } from 'vue';
-import { useBasket } from '../stores/basket.js';
+import { useBasket } from '../stores/basket.ts';
 
 const pay = usePayment();
 const basket = useBasket();

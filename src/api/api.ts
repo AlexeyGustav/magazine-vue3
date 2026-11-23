@@ -1,6 +1,6 @@
-import type { ProductsApi } from "@/types/types.ts";
+import type { ProductsApi } from '@/types/types.ts';
 
-export async function getProducts():Promise<ProductsApi> {
+export async function getProducts(): Promise<ProductsApi> {
   const res = await fetch('./items.json');
 
   if (!res.ok) {
