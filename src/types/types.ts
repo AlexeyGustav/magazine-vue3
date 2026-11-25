@@ -10,7 +10,7 @@ export interface AllProduct extends Product {
   text: string;
   oldPrice: string | null;
   newPrice: string | null;
-  additional: string;
+  additional: string | null;  // товара может не быть метки — это норма
   material: string[];
   color: string[];
   style: string[];

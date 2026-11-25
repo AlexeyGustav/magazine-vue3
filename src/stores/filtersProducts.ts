@@ -91,9 +91,11 @@ export const useFilters = defineStore('dataFilers', () => {
       });
     }
 
-    //Метка
+    //Метка (у товара метки может не быть — null не совпадёт ни с чем)
     if (selectedMarks.value.length) {
-      result = result.filter((mark) => selectedMarks.value.includes(mark.additional));
+      result = result.filter(
+        (mark) => mark.additional !== null && selectedMarks.value.includes(mark.additional),
+      );
     }
 
     // Материал
