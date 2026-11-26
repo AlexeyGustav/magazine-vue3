@@ -50,18 +50,18 @@
 </template>
 
 <script setup lang="ts">
-import type { AllProduct, CartItem } from '@/types/types.ts';
+import type { AllProduct, CartPosition } from '@/types/types.ts';
 import { computed } from 'vue';
 
 const props = defineProps<{
   product: AllProduct;
-  basket: CartItem[];
+  basket: CartPosition[];
 }>();
 
 const emit = defineEmits<{
-  'update:modelValue': [value: CartItem];
-  increase: [value: CartItem];
-  decrease: [value: CartItem];
+  'update:modelValue': [value: AllProduct];
+  increase: [value: AllProduct];
+  decrease: [value: AllProduct];
 }>();
 
 const basketItem = computed(() => {

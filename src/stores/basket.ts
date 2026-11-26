@@ -1,57 +1,76 @@
 import { ref, computed } from 'vue';
 import { defineStore } from 'pinia';
-import type { CartItem } from '@/types/types.ts';
+import type { AllProduct, CartPosition, CartRow } from '@/types/types.ts';
+import { io } from 'socket.io-client';
+import { useFilters } from './filtersProducts';
 
 export const useBasket = defineStore('basket', () => {
-  const items = ref<CartItem[]>([]);
-  // Стоимость товаров в корзине
-  const totalSum = computed(() => items.value.reduce((sum, p) => sum + p.price * p.quantity, 0));
+  const items = ref<CartPosition[]>([]);
+  const socket = io('http://localhost:4000');
+
+  socket.on('cart-updated', (newCart: CartPosition[]) => {
+    items.value = newCart;
+  });
+
+  const filters = useFilters();
+
+  // Корзина, обогащённая каталогом: { id, quantity } из сокета + поля товара из dataProducts
+  const itemsBasket = computed<CartRow[]>(() => {
+    return items.value
+      .map((item) => {
+        const product = filters.dataProducts.find((p) => p.id === item.id);
+        if (!product) return null;
+        return {
+          id: item.id,
+          quantity: item.quantity,
+          price: product.price,
+          title: product.title,
+          img: product.img,
+          text: product.text,
+          description: product.description,
+          oldPrice: product.oldPrice,
+          newPrice: product.newPrice,
+        };
+      })
+      .filter(Boolean) as CartRow[];
+  });
+
+  // Стоимость товаров в корзине — от обогащённых позиций, там есть price
+  const totalSum = computed(() =>
+    itemsBasket.value.reduce((sum, p) => sum + p.price * p.quantity, 0),
+  );
 
   // Корзина в хедере
   const headerBasket = computed(() => items.value.length);
 
-  function addBasket(item: CartItem) {
-    const existing = items.value.find((p) => p.id === item.id);
-
-    if (existing) {
-      existing.quantity += 1;
-    } else {
-      items.value.push({ ...item, quantity: 1 });
-    }
+  // Функциям нужен только id — подходит и позиция корзины, и целый товар из каталога
+  function addBasket(item: CartPosition | AllProduct) {
+    socket.emit('cart:add', { id: item.id });
   }
 
-  // Добавить товар
-  function plusCounter(product: CartItem) {
-    const existing = items.value.find((p) => p.id === product.id);
-    if (existing) existing.quantity += 1;
+  function plusCounter(item: CartPosition | AllProduct) {
+    socket.emit('cart:plus', { id: item.id });
   }
 
-  // Убавить товар
-  function minusCounter(product: CartItem) {
-    const existing = items.value.find((p) => p.id === product.id);
-    if (!existing) return;
-    if (existing.quantity > 1) {
-      existing.quantity -= 1;
-    } else {
-      items.value = items.value.filter((p) => p.id !== product.id);
-    }
+  function minusCounter(item: CartPosition | AllProduct) {
+    socket.emit('cart:minus', { id: item.id });
   }
 
-  // Удалить товар
-  function deleteCard(product: CartItem) {
-    items.value = items.value.filter((p) => p.id !== product.id);
+  function deleteCard(item: CartPosition | AllProduct) {
+    socket.emit('cart:remove', { id: item.id });
   }
 
-  // Копия суммы корзины, для окна успеха
+  // Копия суммы корзины, для окна успеха — фиксируем ДО очистки
   const lastOrder = ref(0);
 
   function clearBasket() {
     lastOrder.value = totalSum.value;
-    items.value = [];
+    socket.emit('cart:clear');
   }
 
   return {
     items,
+    itemsBasket,
     headerBasket,
     addBasket,
     minusCounter,

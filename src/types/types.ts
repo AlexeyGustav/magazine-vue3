@@ -10,7 +10,7 @@ export interface AllProduct extends Product {
   text: string;
   oldPrice: string | null;
   newPrice: string | null;
-  additional: string | null;  // товара может не быть метки — это норма
+  additional: string | null;
   material: string[];
   color: string[];
   style: string[];
@@ -48,3 +48,9 @@ export interface ProductsApi {
   filters: CharacteristicsProducts;
   products: AllProduct[];
 }
+
+// Типы для корзины
+export type CartPosition = Pick<CartItem, 'id' | 'quantity'>;
+
+export type CartRow = CartPosition &
+  Pick<AllProduct, 'price' | 'img' | 'title' | 'text' | 'description' | 'oldPrice' | 'newPrice'>;

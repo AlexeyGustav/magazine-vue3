@@ -6,7 +6,7 @@
       <!-- Список товаров -->
       <section class="cart-items">
         <!-- Товар -->
-        <div v-for="card in basket.items" :key="card.id">
+        <div v-for="card in basket.itemsBasket" :key="card.id">
           <article class="cart-item">
             <div class="item-image-wrap">
               <img :src="card.img" :alt="card.description" class="item-image" />

@@ -32,7 +32,7 @@
             :key="product.id"
             :product="product"
             @update:model-value="basket.addBasket($event)"
-            :basket="basket.items"
+            :basket="basket.itemsBasket"
             @decrease="basket.minusCounter($event)"
             @increase="basket.plusCounter($event)"
           />
