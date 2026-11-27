@@ -15,7 +15,7 @@
 
     <div class="summary-total">
       <span class="summary-total-label">К оплате</span>
-      <span class="summary-total-price">{{ basket.totalSum.toLocaleString('RU-ru') }} ₽</span>
+      <span class="summary-total-price">{{ editingPrice(basket.totalSum) }} ₽</span>
     </div>
 
     <router-link :to="{ name: 'payment' }" class="checkout-btn"> Оформить заказ </router-link>
@@ -23,6 +23,7 @@
 </template>
 
 <script setup lang="ts">
+import { editingPrice } from '@/utils/filters.ts';
 import { useBasket } from '../stores/basket.ts';
 
 const basket = useBasket();

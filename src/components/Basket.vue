@@ -106,6 +106,7 @@
 import HeaderBasket from '@/ui/HeaderBasket.vue';
 import { useBasket } from '../stores/basket.ts';
 import OrderSummaryBasket from '@/ui/OrderSummaryBasket.vue';
+import { editingPrice } from '@/utils/filters.ts';
 
 const basket = useBasket();
 
@@ -118,7 +119,7 @@ function sliceText(text: string): string {
 function sumItem(item: number, quantity: number): string {
   const sumItem = item * quantity;
 
-  return sumItem.toLocaleString('ru-RU');
+  return editingPrice(sumItem);
 }
 </script>
 

@@ -8,3 +8,7 @@ export function matchesSearch(product: SearchableProduct, query: string) {
   const q = query.trim().toLowerCase();
   return product.description.toLowerCase().includes(q);
 }
+
+export function editingPrice(item: number) {
+  return item.toLocaleString('ru-RU')
+}

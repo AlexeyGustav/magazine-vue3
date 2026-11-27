@@ -238,7 +238,7 @@
             <!-- Сумма -->
             <div class="cash-amount-wrap">
               <span class="cash-amount-label">Сумма к оплате</span>
-              <span class="cash-amount">{{ basket.totalSum.toLocaleString('ru-RU') }} ₽</span>
+              <span class="cash-amount">{{ editingPrice(basket.totalSum) }} ₽</span>
             </div>
 
             <!-- Инфо-блоки -->
@@ -284,12 +284,13 @@
 
 <script setup>
 import { ref, computed } from 'vue';
-import { useBasket } from '../stores/basket.js';
+import { useBasket } from '../stores/basket.ts';
 import { usePayment } from '../stores/payment.js';
 import { useRouter } from 'vue-router';
 import HeaderPayment from '../ui/HeaderPayment.vue';
 import SelectionTabs from '@/ui/SelectionTabs.vue';
 import OrderSummary from './OrderSummary.vue';
+import { editingPrice } from '@/utils/filters.ts';
 const router = useRouter();
 
 const basket = useBasket();

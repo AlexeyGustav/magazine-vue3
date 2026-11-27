@@ -36,12 +36,13 @@
 import { usePayment } from '../stores/payment.ts';
 import { ref } from 'vue';
 import { useBasket } from '../stores/basket.ts';
+import { editingPrice } from '@/utils/filters.ts';
 
 const pay = usePayment();
 const basket = useBasket();
 
 const copySum = ref('');
-copySum.value = basket.totalSum.toLocaleString('ru-RU');
+copySum.value = editingPrice(basket.totalSum);
 
 const today = new Date();
 const isoDate = today.toISOString().split('T')[0];
