@@ -1,15 +1,15 @@
 <template>
   <div class="cart-page">
-    <HeaderBasket/>
+    <HeaderBasket />
 
     <div v-if="basket.headerBasket" class="cart-body">
       <!-- Список товаров -->
       <section class="cart-items">
         <!-- Товар -->
-        <div v-for="card in basket.items" :key="card.id">
+        <div v-for="card in basket.itemsBasket" :key="card.id">
           <article class="cart-item">
             <div class="item-image-wrap">
-              <img :src="card.img" alt="Часы Minimalist Watch" class="item-image" />
+              <img :src="card.img" :alt="card.description" class="item-image" />
             </div>
 
             <div class="item-info">
@@ -75,7 +75,7 @@
       </section>
 
       <!-- Сводка заказа -->
-      <OrderSummaryBasket/>
+      <OrderSummaryBasket />
     </div>
 
     <!-- ─── Пустая корзина (скрыта при наличии товаров) ── -->
@@ -102,23 +102,24 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import HeaderBasket from '@/ui/HeaderBasket.vue';
-import { useBasket } from '../stores/basket.js';
+import { useBasket } from '../stores/basket.ts';
 import OrderSummaryBasket from '@/ui/OrderSummaryBasket.vue';
+import { editingPrice } from '@/utils/filters.ts';
 
 const basket = useBasket();
 
-function sliceText(text) {
+function sliceText(text: string): string {
   const wordsArray = text.split(' ');
   const textSlice = wordsArray.slice(0, 5).join(' ') + '...';
   return textSlice;
 }
 
-function sumItem(item, quantity) {
-  const sumItem = item * quantity
-  basket.sumItem = sumItem;
-  return sumItem.toLocaleString('ru-RU')
+function sumItem(item: number, quantity: number): string {
+  const sumItem = item * quantity;
+
+  return editingPrice(sumItem);
 }
 </script>
 

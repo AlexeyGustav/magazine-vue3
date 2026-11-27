@@ -1,29 +1,30 @@
 <template>
-<aside class="cart-summary">
-        <h3 class="summary-title">Итого</h3>
+  <aside class="cart-summary">
+    <h3 class="summary-title">Итого</h3>
 
-        <ul class="summary-lines">
-          <li class="summary-line">
-            <span class="summary-label">Товаров</span>
-            <span class="summary-value">{{ sumItemsBasket() }} шт.</span>
-          </li>
-          <li class="summary-line">
-            <span class="summary-label">Доставка</span>
-            <span class="summary-value summary-value--free">Бесплатно</span>
-          </li>
-        </ul>
+    <ul class="summary-lines">
+      <li class="summary-line">
+        <span class="summary-label">Товаров</span>
+        <span class="summary-value">{{ sumItemsBasket() }} шт.</span>
+      </li>
+      <li class="summary-line">
+        <span class="summary-label">Доставка</span>
+        <span class="summary-value summary-value--free">Бесплатно</span>
+      </li>
+    </ul>
 
-        <div class="summary-total">
-          <span class="summary-total-label">К оплате</span>
-          <span class="summary-total-price">{{ (basket.totalSum).toLocaleString("RU", "ru") }} ₽</span>
-        </div>
+    <div class="summary-total">
+      <span class="summary-total-label">К оплате</span>
+      <span class="summary-total-price">{{ editingPrice(basket.totalSum) }} ₽</span>
+    </div>
 
-        <router-link :to="{ name: 'payment' }" class="checkout-btn"> Оформить заказ </router-link>
-      </aside>
+    <router-link :to="{ name: 'payment' }" class="checkout-btn"> Оформить заказ </router-link>
+  </aside>
 </template>
 
-<script setup>
-import { useBasket } from '../stores/basket.js';
+<script setup lang="ts">
+import { editingPrice } from '@/utils/filters.ts';
+import { useBasket } from '../stores/basket.ts';
 
 const basket = useBasket();
 

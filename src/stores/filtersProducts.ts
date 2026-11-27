@@ -1,32 +1,45 @@
 import { ref, computed } from 'vue';
 import { defineStore } from 'pinia';
-import { getProducts } from '@/api/api';
-import { useSearch } from './search.js'
+import { getProducts } from '@/api/api.ts';
+import { useSearch } from './search.ts';
+import type { AllProduct, OptionsByApi } from '@/types/types.ts';
 
 // Основная логика, где происходят расчёты и какие товары надо вывести
 
 export const useFilters = defineStore('dataFilers', () => {
   //Все товары
-  const dataProducts = ref([]);
+  const dataProducts = ref<AllProduct[]>([]);
   // Текущее название категории
   const currencyCategory = ref('Все');
   // Значения Range в фильтре цены
   const valueRange = ref(0);
   // Значение метки
-  const selectedMarks = ref([]);
+  const selectedMarks = ref<string[]>([]);
   // Матерал
-  const materialList = ref([]);
-  const material = ref([]);
+  const materialList = ref<OptionsByApi>({
+    label: '',
+    type: 'checkbox',
+    options: [],
+  });
+  const material = ref<string[]>([]);
   // Все названия категорий
-  const titles = ref([]);
+  const titles = ref<string[]>([]);
   // Цвет
-  const colorList = ref([]);
-  const currentColor = ref([]);
+  const colorList = ref<OptionsByApi>({
+    label: '',
+    type: 'checkbox',
+    options: [],
+  });
+  const currentColor = ref<string[]>([]);
   // Стиль
-  const styleList = ref([]);
-  const currentStyle = ref([]);
+  const styleList = ref<OptionsByApi>({
+    label: '',
+    type: 'checkbox',
+    options: [],
+  });
+  const currentStyle = ref<string[]>([]);
 
-  const error = ref(null);
+  const error = ref<string | null>(null);
   const isLoading = ref(false);
 
   // Поиск
@@ -44,7 +57,11 @@ export const useFilters = defineStore('dataFilers', () => {
       colorList.value = data.filters.color;
       styleList.value = data.filters.style;
     } catch (e) {
-      error.value = e.message;
+      if (e instanceof Error) {
+        error.value = e.message;
+      } else {
+        error.value = String(e);
+      }
     } finally {
       isLoading.value = false;
     }
@@ -62,7 +79,7 @@ export const useFilters = defineStore('dataFilers', () => {
     // Поиск инпута
     const query = search.input.trim().toLowerCase();
     if (query) {
-      result =  result.filter((word) => {
+      result = result.filter((word) => {
         return word.description.toLowerCase().includes(query);
       });
     }
@@ -74,9 +91,11 @@ export const useFilters = defineStore('dataFilers', () => {
       });
     }
 
-    //Метка
+    //Метка (у товара метки может не быть — null не совпадёт ни с чем)
     if (selectedMarks.value.length) {
-      result = result.filter((mark) => selectedMarks.value.includes(mark.additional));
+      result = result.filter(
+        (mark) => mark.additional !== null && selectedMarks.value.includes(mark.additional),
+      );
     }
 
     // Материал
@@ -94,17 +113,17 @@ export const useFilters = defineStore('dataFilers', () => {
       result = result.filter((p) => p.style.some((m) => currentStyle.value.includes(m)));
     }
 
-    return result
+    return result;
   });
 
   // Границы фильтра цен
-const minPrice = computed(() => {
-  return Math.min(...dataProducts.value.map((p) => p.price));
-});
+  const minPrice = computed(() => {
+    return Math.min(...dataProducts.value.map((p) => p.price));
+  });
 
-const maxPrice = computed(() => {
-  return Math.max(...dataProducts.value.map((p) => p.price));
-});
+  const maxPrice = computed(() => {
+    return Math.max(...dataProducts.value.map((p) => p.price));
+  });
 
   return {
     fetchProducts,
@@ -123,6 +142,6 @@ const maxPrice = computed(() => {
     minPrice,
     maxPrice,
     error,
-    isLoading
+    isLoading,
   };
 });

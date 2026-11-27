@@ -32,16 +32,17 @@
   </div>
 </template>
 
-<script setup>
-import { usePayment } from '../stores/payment.js';
+<script setup lang="ts">
+import { usePayment } from '../stores/payment.ts';
 import { ref } from 'vue';
-import { useBasket } from '../stores/basket.js';
+import { useBasket } from '../stores/basket.ts';
+import { editingPrice } from '@/utils/filters.ts';
 
 const pay = usePayment();
 const basket = useBasket();
 
 const copySum = ref('');
-copySum.value = basket.totalSum.toLocaleString('RU', 'ru');
+copySum.value = editingPrice(basket.totalSum);
 
 const today = new Date();
 const isoDate = today.toISOString().split('T')[0];

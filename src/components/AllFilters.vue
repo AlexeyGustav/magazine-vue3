@@ -2,7 +2,7 @@
   <aside class="filters-panel">
     <div class="filters-head">
       <h3>Фильтры</h3>
-      <button @click="$emit('clear', $event)" class="reset-btn" type="button">Сбросить</button>
+      <button @click="emits('clear')" class="reset-btn" type="button">Сбросить</button>
     </div>
 
     <div class="filter-group">
@@ -14,7 +14,7 @@
           :min="min"
           :max="max"
           step="10"
-          @input="$emit('update:valueRange', Number($event.target.value))"
+          @input="emits('update:valueRange', Number(($event.target as HTMLInputElement).value))"
           :value="valueRange"
         />
       </div>
@@ -38,19 +38,33 @@
   </aside>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import MarkFilter from './MarkFilter.vue';
 import MaterialFilter from './MaterialFilter.vue';
 import ColorFilter from './ColorFilter.vue';
 import StyleFilter from './StyleFilter.vue';
+import type { OptionsByApi } from '@/types/types.ts';
 
+interface Props {
+  min?: number;
+  max?: number;
+  valueRange?: number;
+  materialList?: OptionsByApi;
+  colorList?: OptionsByApi;
+  styleList?: OptionsByApi;
+}
 
-defineProps(['min', 'max', 'valueRange', 'materialList', 'colorList', 'styleList']);
-defineEmits(['update:valueRange', 'clear']);
-const selectedMarks = defineModel('selectedMarks');
-const selectedMaterial = defineModel('selectedMaterial');
-const currentColor = defineModel('currentColor');
-const currentStyle = defineModel('currentStyle');
+interface Emits {
+  'update:valueRange': [value: number];
+  clear: [];
+}
+
+defineProps<Props>();
+const emits = defineEmits<Emits>();
+const selectedMarks = defineModel<string[]>('selectedMarks');
+const selectedMaterial = defineModel<string[]>('selectedMaterial');
+const currentColor = defineModel<string[]>('currentColor');
+const currentStyle = defineModel<string[]>('currentStyle');
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped></style>

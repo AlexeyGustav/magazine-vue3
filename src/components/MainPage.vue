@@ -1,5 +1,5 @@
 <template>
-  <Header/>
+  <Header />
   <div class="main-content">
     <div class="layout">
       <AllFilters
@@ -32,7 +32,7 @@
             :key="product.id"
             :product="product"
             @update:model-value="basket.addBasket($event)"
-            :basket="basket.items"
+            :basket="basket.itemsBasket"
             @decrease="basket.minusCounter($event)"
             @increase="basket.plusCounter($event)"
           />
@@ -40,16 +40,16 @@
       </section>
     </div>
   </div>
-  <Footer/>
+  <Footer />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import Header from '../components/Header.vue';
 import Footer from '../components/Footer.vue';
 import { onMounted } from 'vue';
-import { useBasket } from '../stores/basket.js';
-import { useSearch } from '../stores/search.js';
-import { useFilters } from '../stores/filtersProducts.js';
+import { useBasket } from '../stores/basket.ts';
+import { useSearch } from '../stores/search.ts';
+import { useFilters } from '../stores/filtersProducts.ts';
 import AllFilters from '../components/AllFilters.vue';
 import Navigation from '../components/Navigation.vue';
 import ToolBar from '../components/ToolBar.vue';
@@ -75,5 +75,4 @@ function clearFilters() {
 
 // Компонет смонторован
 onMounted(() => filters.fetchProducts());
-
 </script>

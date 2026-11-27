@@ -7,9 +7,9 @@
   </div>
 </template>
 
-<script setup>
-import { useFilters } from '../stores/filtersProducts.js';
+<script setup lang="ts">
+import { useFilters } from '../stores/filtersProducts.ts';
 const filters = useFilters();
 // defineProps(['styleList']);
-const currentStyle = defineModel('currentStyle');
+const currentStyle = defineModel<string[]>('currentStyle', { default: () => [] });
 </script>
